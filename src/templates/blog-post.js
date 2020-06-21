@@ -16,14 +16,8 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         description={post.frontmatter.description || post.excerpt}
       />
       <article>
-        <header>
-          <h1
-            style={{
-              marginBottom: 0,
-            }}
-          >
-            {post.frontmatter.title}
-          </h1>
+        <header className="mb-8">
+          <span className="text-4xl">{post.frontmatter.title}</span>
           <p
             style={{
               display: `block`,
@@ -36,7 +30,6 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           className="markdown"
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
-        <hr />
       </article>
     </Layout>
   )

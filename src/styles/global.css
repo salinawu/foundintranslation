@@ -46,13 +46,14 @@
 
 html {
   font-family: 'Space Grotesk', sans-serif;
+  @apply text-gray-900;
 }
 
 /* purgecss start ignore */
 /* Markdown Styles */
 /* Global */
 .markdown {
-  @apply leading-relaxed text-lg;
+  @apply leading-relaxed text-xl;
 }
 /* Headers */
 .markdown h1,
@@ -79,7 +80,7 @@ html {
 /* Lists */
 .markdown ul,
 .markdown ol {
-  @apply mb-4 ml-8;
+  @apply mb-4;
 }
 .markdown li > p,
 .markdown li > ul,
@@ -87,10 +88,10 @@ html {
   @apply mb-0;
 }
 .markdown ol {
-  @apply list-decimal;
+  @apply list-decimal list-outside;
 }
 .markdown ul {
-  @apply list-disc;
+  @apply list-disc list-outside;
 }
 /* Blockquotes */
 .markdown blockquote {

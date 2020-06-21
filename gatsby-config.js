@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `foundintranslation`,
+    title: `Found In Translation`,
     description: `Resources against anti-black racism for the Asian community`,
     siteUrl: `https://foundintranslation.com`,
     author: `foundintranslation`,
