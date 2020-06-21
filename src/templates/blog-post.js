@@ -32,7 +32,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             {post.frontmatter.date}
           </p>
         </header>
-        <section dangerouslySetInnerHTML={{ __html: post.html }} />
+        <section className="markdown" dangerouslySetInnerHTML={{ __html: post.html }} />
         <hr />
       </article>
     </Layout>
