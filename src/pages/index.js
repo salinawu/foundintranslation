@@ -1,13 +1,13 @@
-import React from "react";
-import { Link, graphql } from "gatsby";
+import React from 'react'
+import { Link, graphql } from 'gatsby'
 
-import Layout from "../components/layout";
-import Image from "../components/image";
-import SEO from "../components/seo";
+import Layout from '../components/layout'
+import Image from '../components/image'
+import SEO from '../components/seo'
 
 const IndexPage = ({ data }) => {
-  const siteTitle = data.site.siteMetadata.title;
-  const posts = data.allMarkdownRemark.edges;
+  const siteTitle = data.site.siteMetadata.title
+  const posts = data.allMarkdownRemark.edges
 
   return (
     <Layout>
@@ -35,10 +35,10 @@ const IndexPage = ({ data }) => {
         )
       })}
     </Layout>
-  );
-};
+  )
+}
 
-export default IndexPage;
+export default IndexPage
 
 export const pageQuery = graphql`
   query {
