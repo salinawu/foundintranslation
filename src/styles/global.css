@@ -4,6 +4,50 @@
 
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('../assets/SpaceGrotesk-Regular.woff') format('woff'),
+    url('../assets/SpaceGrotesk-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('../assets/SpaceGrotesk-Bold.woff') format('woff'),
+    url('../assets/SpaceGrotesk-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('../assets/SpaceGrotesk-Light.woff') format('woff'),
+    url('../assets/SpaceGrotesk-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('../assets/SpaceGrotesk-Medium.woff') format('woff'),
+    url('../assets/SpaceGrotesk-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('../assets/SpaceGrotesk-SemiBold.woff') format('woff'),
+    url('../assets/SpaceGrotesk-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+
+html {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
 /* purgecss start ignore */
 /* Markdown Styles */
 /* Global */
