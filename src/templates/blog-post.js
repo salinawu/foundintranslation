@@ -23,7 +23,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       <Link
         to={getSlugByLang(translatedLangKey, slug, langKey)}
         key={translatedLangKey}
-        className="font-medium hover:font-semibold text-xl"
+        className="font-medium hover:font-semibold text-xl mr-4"
       >
         {supportedLanguages[translatedLangKey]}
       </Link>
