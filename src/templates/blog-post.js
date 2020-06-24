@@ -3,28 +3,31 @@ import { Link, graphql } from 'gatsby'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
+import ShareButtons from '../components/ShareButtons';
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
-  const post = data.markdownRemark
-  const siteTitle = data.site.siteMetadata.title
-  const { previous, next } = pageContext
+  const post = data.markdownRemark;
+  const siteTitle = data.site.siteMetadata.title;
+  const { date, description, title } = post.frontmatter;
+  const { previous, next } = pageContext;
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO
-        title={post.frontmatter.title}
-        description={post.frontmatter.description || post.excerpt}
+        title={title}
+        description={description || post.excerpt}
       />
       <article>
         <header className="mb-8">
-          <span className="text-4xl">{post.frontmatter.title}</span>
+          <span className="text-4xl">{title}</span>
           <p
             style={{
               display: `block`,
             }}
           >
-            {post.frontmatter.date}
+            {date}
           </p>
+          <ShareButtons description={description} postUrl={"www.foundintranslation.com"} title={title} />
         </header>
         <section
           className="markdown"
