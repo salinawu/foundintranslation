@@ -4,3 +4,5 @@ exports.supportedLanguages = {
   'zh-hans': '简体中文',
   ja: '日本語',
 }
+
+exports.defaultLang = 'en'

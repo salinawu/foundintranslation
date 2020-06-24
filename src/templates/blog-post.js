@@ -3,11 +3,31 @@ import { Link, graphql } from 'gatsby'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
+import { defaultLang, supportedLanguages } from '../../i18n'
+
+const getSlugByLang = (langKey, slug, srcLang) => {
+  const rawSlug = slug.replace(`${srcLang}/`, '')
+  return `${langKey}${rawSlug}`
+}
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark
+  const { langKey, slug } = data.markdownRemark.fields
+  const { previous, next, translations } = pageContext
   const siteTitle = data.site.siteMetadata.title
-  const { previous, next } = pageContext
+
+  const translatedLinks = translations
+    .filter((lK) => lK !== langKey)
+    .concat(langKey !== defaultLang ? [defaultLang] : [])
+    .map((translatedLangKey) => (
+      <Link
+        to={getSlugByLang(translatedLangKey, slug, langKey)}
+        key={translatedLangKey}
+        className="font-medium hover:font-semibold text-xl"
+      >
+        {supportedLanguages[translatedLangKey]}
+      </Link>
+    ))
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -18,13 +38,8 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       <article>
         <header className="mb-8">
           <span className="text-4xl">{post.frontmatter.title}</span>
-          <p
-            style={{
-              display: `block`,
-            }}
-          >
-            {post.frontmatter.date}
-          </p>
+          <p className="text-lg mb-4">{post.frontmatter.date}</p>
+          {translatedLinks}
         </header>
         <section
           className="markdown"
@@ -53,6 +68,10 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         description
         tags
+      }
+      fields {
+        slug
+        langKey
       }
     }
   }
