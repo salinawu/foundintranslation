@@ -6,3 +6,10 @@ exports.supportedLanguages = {
 }
 
 exports.defaultLang = 'en'
+
+exports.langFonts = {
+  en: 'Space Grotesk',
+  'zh-hans': 'Noto Sans SC',
+  'zh-hant': 'Noto Sans TC',
+  ja: 'Noto Sans JP',
+}

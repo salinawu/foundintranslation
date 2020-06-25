@@ -3,7 +3,8 @@ import { Link, graphql } from 'gatsby'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import { defaultLang, supportedLanguages } from '../../i18n'
+import { defaultLang, supportedLanguages, langFonts } from '../../i18n'
+import { loadFontForLang } from '../utils/i18n'
 
 const getSlugByLang = (langKey, slug, srcLang) => {
   const rawSlug = slug.replace(`${srcLang}/`, '')
@@ -16,6 +17,8 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const { previous, next, translations } = pageContext
   const siteTitle = data.site.siteMetadata.title
 
+  translations.concat(langKey).forEach((langKey) => loadFontForLang(langKey))
+
   const translatedLinks = translations
     .filter((lK) => lK !== langKey)
     .concat(langKey !== defaultLang ? [defaultLang] : [])
@@ -24,6 +27,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         to={getSlugByLang(translatedLangKey, slug, langKey)}
         key={translatedLangKey}
         className="font-medium hover:font-semibold text-xl mr-4"
+        style={{ fontFamily: langFonts[translatedLangKey] }}
       >
         {supportedLanguages[translatedLangKey]}
       </Link>
@@ -43,6 +47,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         </header>
         <section
           className="markdown"
+          style={{ fontFamily: langFonts[langKey] }}
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
       </article>
