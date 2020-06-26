@@ -5,12 +5,15 @@ import Layout from '../components/layout'
 import Image from '../components/image'
 import SEO from '../components/seo'
 
-const IndexPage = ({ data }) => {
+const IndexPage = ({ data, pageContext, location }) => {
   const siteTitle = data.site.siteMetadata.title
-  const posts = data.allMarkdownRemark.edges
+  const { langKey } = pageContext
+  const posts = data.allMarkdownRemark.edges.filter(
+    ({ node }) => node.fields.langKey === langKey
+  )
 
   return (
-    <Layout>
+    <Layout location={location}>
       <SEO title="All posts" />
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug
@@ -52,6 +55,7 @@ export const pageQuery = graphql`
           excerpt
           fields {
             slug
+            langKey
           }
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
