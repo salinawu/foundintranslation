@@ -3,12 +3,8 @@ import PropTypes from 'prop-types'
 import { useStaticQuery, graphql } from 'gatsby'
 
 import Header from './header'
-import { DEFAULT_LOCALE, getLocale, getMessages } from '../strings'
 
-const Layout = ({
-  children,
-  pageContext: { locale = DEFAULT_LOCALE, redirectMap = {}, supportedLanguages = {} }
-}) => {
+const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -20,12 +16,7 @@ const Layout = ({
   `)
 
   return (
-    <LocalizationProvider
-      locale={getLocale(locale)}
-      messages={getMessages(locale)}
-      localizedPaths={supportedLanguages}
-      redirectMap={redirectMap}
-    >
+    <>
       <Header siteTitle={data.site.siteMetadata.title} />
       <div className="mx-auto my-0 max-w-4xl">
         <main>{children}</main>
@@ -33,7 +24,7 @@ const Layout = ({
           © {new Date().getFullYear()}
         </footer>
       </div>
-    </LocalizationProvider>
+    </>
   )
 }
 

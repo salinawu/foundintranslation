@@ -14,7 +14,8 @@ const getSlugByLang = (langKey, slug, srcLang) => {
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark
   const { langKey, slug } = data.markdownRemark.fields
-  const { previous, next, translations } = pageContext
+  // const { previous, next, translations } = pageContext
+  const { translations } = pageContext
   const siteTitle = data.site.siteMetadata.title
 
   translations.concat(langKey).forEach((langKey) => loadFontForLang(langKey))
