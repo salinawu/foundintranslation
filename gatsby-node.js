@@ -93,8 +93,8 @@ exports.createPages = async ({ graphql, actions }) => {
     const curLangPosts = posts.filter(
       (p) => p.node.fields.langKey === post.node.fields.langKey
     )
-    const previous = curLangPosts[index + 1]?.node
-    const next = curLangPosts[index - 1]?.node
+    const previous = curLangPosts[index + 1] && curLangPosts[index + 1].node
+    const next = curLangPosts[index - 1] && curLangPosts[index - 1].node
     const translations =
       translationsByDirectory[post.node.fields.directoryName] || []
 

@@ -3,6 +3,7 @@ import { Link, graphql } from 'gatsby'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
+import ShareButtons from '../components/ShareButtons'
 import { defaultLang, supportedLanguages, langFonts } from '../../i18n'
 import { loadFontForLang } from '../utils/i18n'
 
@@ -13,6 +14,7 @@ const getSlugByLang = (langKey, slug, srcLang) => {
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark
+  const { date, description, title } = post.frontmatter
   const { langKey, slug } = data.markdownRemark.fields
   const { previous, next, translations } = pageContext
   const siteTitle = data.site.siteMetadata.title
@@ -35,14 +37,16 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <SEO
-        title={post.frontmatter.title}
-        description={post.frontmatter.description || post.excerpt}
-      />
+      <SEO title={title} description={description || post.excerpt} />
       <article>
         <header className="mb-8">
-          <span className="text-4xl">{post.frontmatter.title}</span>
-          <p className="text-lg mb-4">{post.frontmatter.date}</p>
+          <span className="text-4xl">{title}</span>
+          <p className="text-lg mb-4">{date}</p>
+          <ShareButtons
+            description={description}
+            postUrl={'www.foundintranslation.com'}
+            title={title}
+          />
           {translatedLinks}
         </header>
         <section
