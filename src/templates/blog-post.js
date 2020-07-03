@@ -3,34 +3,55 @@ import { Link, graphql } from 'gatsby'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
-import ShareButtons from '../components/ShareButtons';
+import ShareButtons from '../components/ShareButtons'
+import { defaultLang, supportedLanguages, langFonts } from '../../i18n'
+import { loadFontForLang } from '../utils/i18n'
+
+const getSlugByLang = (langKey, slug, srcLang) => {
+  const rawSlug = slug.replace(`${srcLang}/`, '')
+  return `${langKey}${rawSlug}`
+}
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
-  const post = data.markdownRemark;
-  const siteTitle = data.site.siteMetadata.title;
-  const { date, description, title } = post.frontmatter;
-  const { previous, next } = pageContext;
+  const post = data.markdownRemark
+  const { date, description, title } = post.frontmatter
+  const { langKey, slug } = data.markdownRemark.fields
+  const { previous, next, translations } = pageContext
+  const siteTitle = data.site.siteMetadata.title
+
+  translations.concat(langKey).forEach((langKey) => loadFontForLang(langKey))
+
+  const translatedLinks = translations
+    .filter((lK) => lK !== langKey)
+    .concat(langKey !== defaultLang ? [defaultLang] : [])
+    .map((translatedLangKey) => (
+      <Link
+        to={getSlugByLang(translatedLangKey, slug, langKey)}
+        key={translatedLangKey}
+        className="font-medium hover:font-semibold text-xl mr-4"
+        style={{ fontFamily: langFonts[translatedLangKey] }}
+      >
+        {supportedLanguages[translatedLangKey]}
+      </Link>
+    ))
 
   return (
     <Layout location={location} title={siteTitle}>
-      <SEO
-        title={title}
-        description={description || post.excerpt}
-      />
+      <SEO title={title} description={description || post.excerpt} />
       <article>
         <header className="mb-8">
           <span className="text-4xl">{title}</span>
-          <p
-            style={{
-              display: `block`,
-            }}
-          >
-            {date}
-          </p>
-          <ShareButtons description={description} postUrl={"www.foundintranslation.com"} title={title} />
+          <p className="text-lg mb-4">{date}</p>
+          <ShareButtons
+            description={description}
+            postUrl={'www.foundintranslation.com'}
+            title={title}
+          />
+          {translatedLinks}
         </header>
         <section
           className="markdown"
+          style={{ fontFamily: langFonts[langKey] }}
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
       </article>
@@ -56,6 +77,10 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         description
         tags
+      }
+      fields {
+        slug
+        langKey
       }
     }
   }
