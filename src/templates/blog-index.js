@@ -9,16 +9,14 @@ import { getLocale, getMessages } from '../strings'
 import { LocalizationProvider } from '../components/language-provider'
 import { defaultLang } from '../../i18n.js'
 
-const IndexPage = ({ data, pageContext: { locale = defaultLang, redirectMap = {}, supportedLanguages = {} }, location }) => {
+const IndexPage = ({ data, pageContext: { langKey = defaultLang }, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const posts = data.allMarkdownRemark.edges
 
   return (
     <LocalizationProvider
-      locale={getLocale(locale)}
-      messages={getMessages(locale)}
-      localizedPaths={supportedLanguages}
-      redirectMap={redirectMap}
+      locale={getLocale(langKey)}
+      messages={getMessages(langKey)}
     >
       <Layout location={location}>
         <FormattedMessage id="test.string" />
@@ -52,13 +50,16 @@ const IndexPage = ({ data, pageContext: { locale = defaultLang, redirectMap = {}
 export default IndexPage
 
 export const pageQuery = graphql`
-  query {
+  query($langKey: String!) {
     site {
       siteMetadata {
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(
+      filter: { fields: { langKey: { eq: $langKey } } }
+      sort: { fields: [frontmatter___date], order: DESC }
+    ) {
       edges {
         node {
           excerpt
