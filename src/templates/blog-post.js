@@ -7,7 +7,7 @@ import ShareButtons from '../components/ShareButtons'
 import { defaultLang, supportedLanguages, langFonts } from '../../i18n'
 import { loadFontForLang } from '../utils/i18n'
 import { getLocale, getMessages } from '../strings'
-import { LocalizationProvider } from '../components/language-provider'
+import LocalizationProvider from '../components/localization-provider'
 
 const getSlugByLang = (langKey, slug, srcLang) => {
   const rawSlug = slug.replace(`${srcLang}/`, '')

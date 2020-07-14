@@ -1,15 +1,19 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl'
 
 import Layout from '../components/layout'
 import Image from '../components/image'
 import SEO from '../components/seo'
 import { getLocale, getMessages } from '../strings'
-import { LocalizationProvider } from '../components/language-provider'
+import LocalizationProvider from '../components/localization-provider'
 import { defaultLang } from '../../i18n.js'
 
-const IndexPage = ({ data, pageContext: { langKey = defaultLang }, location }) => {
+const IndexPage = ({
+  data,
+  pageContext: { langKey = defaultLang },
+  location,
+}) => {
   const siteTitle = data.site.siteMetadata.title
   const posts = data.allMarkdownRemark.edges
 
