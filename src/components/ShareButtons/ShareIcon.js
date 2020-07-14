@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const ShareIcon = () => (
   <svg className="w-8" viewBox="0 0 33 33">
@@ -10,6 +10,6 @@ const ShareIcon = () => (
       />
     </g>
   </svg>
-);
+)
 
-export default ShareIcon;
+export default ShareIcon

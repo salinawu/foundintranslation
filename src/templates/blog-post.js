@@ -6,6 +6,8 @@ import SEO from '../components/seo'
 import ShareButtons from '../components/ShareButtons'
 import { defaultLang, supportedLanguages, langFonts } from '../../i18n'
 import { loadFontForLang } from '../utils/i18n'
+import { getLocale, getMessages } from '../strings'
+import LocalizationProvider from '../components/localization-provider'
 
 const getSlugByLang = (langKey, slug, srcLang) => {
   const rawSlug = slug.replace(`${srcLang}/`, '')
@@ -36,26 +38,31 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
     ))
 
   return (
-    <Layout location={location} title={siteTitle}>
-      <SEO title={title} description={description || post.excerpt} />
-      <article>
-        <header className="mb-8">
-          <span className="text-4xl">{title}</span>
-          <p className="text-lg mb-4">{date}</p>
-          <ShareButtons
-            description={description}
-            postUrl={'www.foundintranslation.com'}
-            title={title}
+    <LocalizationProvider
+      locale={getLocale(langKey)}
+      messages={getMessages(langKey)}
+    >
+      <Layout location={location} title={siteTitle}>
+        <SEO title={title} description={description || post.excerpt} />
+        <article>
+          <header className="mb-8">
+            <span className="text-4xl">{title}</span>
+            <p className="text-lg mb-4">{date}</p>
+            <ShareButtons
+              description={description}
+              postUrl={'www.foundintranslation.com'}
+              title={title}
+            />
+            {translatedLinks}
+          </header>
+          <section
+            className="markdown"
+            style={{ fontFamily: langFonts[langKey] }}
+            dangerouslySetInnerHTML={{ __html: post.html }}
           />
-          {translatedLinks}
-        </header>
-        <section
-          className="markdown"
-          style={{ fontFamily: langFonts[langKey] }}
-          dangerouslySetInnerHTML={{ __html: post.html }}
-        />
-      </article>
-    </Layout>
+        </article>
+      </Layout>
+    </LocalizationProvider>
   )
 }
 

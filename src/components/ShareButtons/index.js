@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
-import ReactTooltip from 'react-tooltip';
+import ReactTooltip from 'react-tooltip'
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -12,7 +12,6 @@ import {
   RedditShareButton,
   TwitterShareButton,
   WhatsappShareButton,
-
   EmailIcon,
   FacebookIcon,
   InstapaperIcon,
@@ -21,27 +20,20 @@ import {
   PocketIcon,
   RedditIcon,
   TwitterIcon,
-  WhatsappIcon
-} from "react-share";
+  WhatsappIcon,
+} from 'react-share'
 
-import ShareIcon from './ShareIcon';
+import ShareIcon from './ShareIcon'
 
-const ShareButtons = ({
-  description,
-  title,
-  postUrl
-}) => {
-
-  const [showTooltip, setShowTooltip] = useState(true);
+const ShareButtons = ({ description, title, postUrl }) => {
+  const [showTooltip, setShowTooltip] = useState(true)
 
   const handleGetContent = () => {
     return (
       <div>
         <div>Share</div>
         <ul>
-          <li>
-            *Copy link button here*
-          </li>
+          <li>*Copy link button here*</li>
           <li className="flex items-center pb-2">
             <LineShareButton url={postUrl}>
               <LineIcon size={32} round />
@@ -80,8 +72,8 @@ const ShareButtons = ({
           </li>
         </ul>
       </div>
-    );
-  };
+    )
+  }
 
   // TODO do we need FB developer app id?
   return (
@@ -99,19 +91,19 @@ const ShareButtons = ({
         <ReactTooltip
           border
           clickable
-          effect='solid'
-          event='click focus'
+          effect="solid"
+          event="click focus"
           getContent={handleGetContent}
-          globalEventOff='click'
-          place='bottom'
-          type='light'
+          globalEventOff="click"
+          place="bottom"
+          type="light"
         />
       )}
-      <div data-tip='share tooltip'>
+      <div data-tip="share tooltip">
         <ShareIcon />
       </div>
     </div>
-  );
+  )
 }
 
-export default ShareButtons;
+export default ShareButtons
